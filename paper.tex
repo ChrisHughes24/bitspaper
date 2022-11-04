@@ -1,0 +1,295 @@
+\def\paperversiondraft{draft}
+\def\paperversionblind{blind}
+
+\ifx\paperversion\paperversionblind
+\else
+  \def\paperversion{blind}
+\fi
+
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[12pt]{article} % use larger type; default would be 10pt
+
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{xargs}
+\usepackage{xparse}
+\usepackage{xifthen, xstring}
+\usepackage{ulem}
+\usepackage{xspace}
+\usepackage{multirow}
+\setlength {\marginparwidth }{2cm}
+\usepackage{todonotes}
+\bibliographystyle{amsalpha}
+\makeatletter
+\font\uwavefont=lasyb10 scaled 652
+\DeclareSymbolFontAlphabet{\mathrm}    {operators}
+\DeclareSymbolFontAlphabet{\mathnormal}{letters}
+\DeclareSymbolFontAlphabet{\mathcal}   {symbols}
+\DeclareMathAlphabet      {\mathbf}{OT1}{cmr}{bx}{n}
+\DeclareMathAlphabet      {\mathsf}{OT1}{cmss}{m}{n}
+\DeclareMathAlphabet      {\mathit}{OT1}{cmr}{m}{it}
+\DeclareMathAlphabet      {\mathtt}{OT1}{cmtt}{m}{n}
+%% \newcommand\colorwave[1][blue]{\bgroup\markoverwith{\lower3\p@\hbox{\uwavefont\textcolor{#1}{\char58}}}\ULon}
+% \makeatother
+
+% \ifx\paperversion\paperversiondraft
+% \newcommand\createtodoauthor[2]{%
+% \def\tmpdefault{emptystring}
+% \expandafter\newcommand\csname #1\endcsname[2][\tmpdefault]{\def\tmp{##1}\ifthenelse{\equal{\tmp}{\tmpdefault}}
+%    {\todo[linecolor=#2!20,backgroundcolor=#2!25,bordercolor=#2,size=\tiny]{\textbf{#1:} ##2}}
+%    {\ifthenelse{\equal{##2}{}}{\colorwave[#2]{##1}\xspace}{\todo[linecolor=#2!10,backgroundcolor=#2!25,bordercolor=#2]{\tiny \textbf{#1:} ##2}\colorwave[#2]{##1}}}}}
+% \else
+% \newcommand\createtodoauthor[2]{%
+% \expandafter\newcommand\csname #1\endcsname[2][\@nil]{}}
+% \fi
+
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+\usepackage[utf8x]{inputenc}
+\usepackage{amssymb}
+\usepackage{listings}
+
+\usepackage{color}
+\definecolor{keywordcolor}{rgb}{0.7, 0.1, 0.1}   % red
+\definecolor{commentcolor}{rgb}{0.4, 0.4, 0.4}   % grey
+\definecolor{symbolcolor}{rgb}{0.0, 0.1, 0.6}    % blue
+\definecolor{sortcolor}{rgb}{0.1, 0.5, 0.1}      % green
+\usepackage{listings}
+\def\lstlanguagefiles{lstlean.tex}
+\lstset{language=lean}
+
+
+%%% PACKAGES
+\usepackage{inputenc}
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+
+\usepackage{textcomp}
+
+
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{\leftmark}\chead{}\rhead{\rightmark}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{tikz-cd}
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[subsection]
+\theoremstyle{definition}
+\newtheorem{corol}[thm]{Corollary}
+\theoremstyle{definition}
+\newtheorem{lemma}[thm]{Lemma}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{exmpl}[thm]{Example}
+\usepackage{lscape}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\newcommand{\invamalg}{\mathbin{\text{\rotatebox[origin=c]{180}{$\amalg$}}}}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Using Universal Properties to Prove Equalities of Morphisms Automatically}
+\author{Christopher Hughes}
+
+\begin{document}
+
+We have implemented a verified algorithm in Lean that will equality of
+expressions on sequences of bits of arbitrary length. Semantic equality
+of expressions in the following syntax is decidable when interpreted
+as operations on infinite sequences of bits. This implies
+decidability of equality on finite sequences of arbitrary length.
+
+\begin{lstlisting}[language=lean]
+  inductive term : Type
+  | var : ℕ → term
+  | zero : term
+  | neg_one : term
+  | one : term
+  | and : term → term → term
+  | or : term → term → term
+  | xor : term → term → term
+  | not : term → term
+  | ls : term → term
+  | add : term → term → term
+  | sub : term → term → term
+  | neg : term → term
+  | incr : term → term
+  | decr : term → term
+\end{lstlisting}
+
+We prove decidability by proving that an equality of terms $t_1$ and $t_2$ is true
+for words of arbitrary length if it is true for words of length $2^n$,
+where $n$ is the total number of operations requiring a carry in either of the terms.
+The operations requiring a carry are \lstinline{one}, \lstinline{add}, \lstinline{sub},
+\lstinline{ls}, \lstinline{incr}, \lstinline{decr} and \lstinline{neg}.
+The equality can then be checked by a brute force check over all words of length $2^n$.
+For all of the equalities in the list (is the list in the Zulip thread somewhere else in the paper?),
+$n$ is no more than $3$ and so they can be verifying by checking on all $8$-bit words.
+
+Use the notation $S$ to denote the set of all infinite sequences of bits,
+i.e. the set of function $\mathbb{N} \rightarrow \{0,1\}$. For the set of
+words of length $n$ we use the notation $W_n$
+
+% We will first define a function $thingy$, which for any natural number $c$
+% and $n$ takes as its input an initial carry $i \in W_c$ and two functions,
+% $carry : W_{c} \times W_n \rightarrow W_{c}$ and $bit : W_{c} \times W_n \rightarrow W_1$,
+% and returns a function $S^n \rightarrow S$, and a sequence .
+
+% The function $thingy$
+
+We will show that all functions $S^n \rightarrow S$ definable with \lstinline{term}
+can be written as a finite state machine. Given a number of carry bits $c$ and
+an arity $n$, an initial state $i \in W_c$ a transition function
+$t : W_{c} \times W_n \rightarrow W_{c}$,
+an output function $o : W_c \times W_n \rightarrow \{0, 1\}$, we can define
+a function $thingy : S^n \rightarrow S$ as follows. If $w \in S^n$ then
+
+\begin{equation}
+  thingy(i, t, o, w, n) = o(carry(n), w_{n})
+\end{equation}
+
+where $carry(n)$ is defined inductively as follows
+
+\begin{equation}
+  \begin{aligned}
+    carry(i, t, o, w, 0) = i \\
+    carry(n+1) = t(carry(n), w_{n})
+  \end{aligned}
+\end{equation}
+
+Later, we will prove that all terms in our syntax can be written as operations using $thingy$.
+First, we will show that given an operation defined using thingy, we can check in finite
+time if it returns a constant sequence of zeros on all inputs $w \in S^n$.
+
+Lemma 1
+
+For any word $w$ there and set of natural numbers $I$ of cardinality greater
+than $2^c$, there exist $x, y \in I$ such that $m \ne n$ and
+$carry(i, t, o, w, x) = carry(i, t, o, w, y)$. We prove this using a
+cardinality based argument, if there were not such $m$ and $n$,
+then the function sending $k \in I$ to $carry(i, t, o, w, k)$ would be injective.
+But $I$ has cardinality at least $2^c + 1$,
+and the set of words of length $c$ has cardinality $2^c$, so the function cannot
+be injective. Contradiction.
+
+Theorem 2
+
+For any word $w$ and natural number $n$, such that
+$thingy(i, t, o, w, n)$ there exists another word $w'$ and
+a natural number $m < 2^c$ such that $thingy(i, t, o, w, m)$ is also equal to $1$.
+
+Proof of Theorem 2
+
+We prove this by strong induction on $n$.
+If $n < 2^c$ this is straightforward. So assume $n \ge 2^c$. From
+Theorem 1 we know that there are $x, y \le n$ such that $x \ne y$,
+and $carry(i, t, o, w, x) = carry(i, t, o, w, y)$.
+Without loss of generality, assume $x < y$. We can then define a word $w'$
+by cases. If $k < x$ then $w'_k = w_k$, if $k \ge x$ then $w'_k = w_{k + y - x}$.
+Note that for any $k \ge 0$ we have $w'_{x+k} = w{y+k}$.
+We know that $carry(i, t, o, w', x) = carry(i, t, o, w, y)$, since
+$w$ and $w'$ are equal on all inputs $k < x$, and the $carry$
+at $x$ only depends on the input $w'$ at values less than $x$.
+
+Now note that for any $k > 0$ we have $thingy(i, t, o, w', x+k) = thingy(i, t, o, w', y+k)$,
+and $carry(i, t, o, w', x+k) = carry(i, t, o, w', y+k)$. This is straightforward to
+prove by induction on $k$, using the fact that $w'_{x+k} = w_{y+k}$ and
+$carry(i, t, o, w', x) = carry(i, t, o, w, y)$.
+
+Therefore $thingy(i, t, o, w', x + n - y) = thingy(i, t, o, w, n)$, and since
+$x + n - y < n$ theorem 2 follows from applying the induction hypothesis to
+$x + n - y$.
+
+From Theorem 2 it is clear that if $thingy(i, t, o, w, n)$ is zero for
+any sequence $w$ at any position $n < 2^c$, then it is zero for all $w$ and $n$.
+
+We now show that every term can be written as an operation using $thingy$.
+
+All of the operations in \lstinline{term} can be defined suing $thingy$. For example,
+to define addition, there is one carry bit, the inital state in $0$, the transition
+function $t : W_3 \rightarrow \{0, 1\}$ sends $a$ to $(a_0 \& a_1) \| (a_1 \& a_2) \| (a_0 \& a_2)$
+and the output function $o : W_3 \rightarrow \{0, 1\}$ sends $a$ to $a_0 \oplus a_1 \oplus a_2$.
+To define the bitwise operations we use $thingy$ with zero bits of carry.
+The left shifting operation \lstinline{ls} requires one bit of carry. To define
+$one$ we use $thingy$ with one bit of carry and arity $0$,
+the initial state is $1$, the transition function $t : \{0, 1\} \rightarrow \{0, 1\}$ sends
+everything to $0$. The output function $o : \{0, 1\} \rightarrow \{0, 1\}$ sends $a$ to $a$.
+
+We can also compose operations written using $thingy$ into an operation using $thingy$.
+We will show this for arity two operations, but the method generalizes to higher arity.
+Suppose we have an arity two operation $f : S^2 \rightarrow S$ defined using thingy with
+$c$ carry bits, initial state $i$, transition function $t$ and output function $o$.
+Suppose we also have two arity $n$ operations $g_1 : S^n \rightarrow S$ and $g_2 : S^n \rightarrow S$,
+also defined using thingy with $c_0$ and $c_1$ carry bits,
+initial states $i_0$ and $i_1$, transition functions $t_1$ and $t_2$ and output functions $o_1$ and $o_2$.
+Then we want to find an expression of $W \mapsto f(g_1(w), g_2(w))$ in terms of $thingy$.
+
+The number of carry bits $d$ of the new expression is $c + c_0 + c_1$.
+We now view $W_{c + c_0 + c_1 + n}$ as a the product of sets $W_c \times W_{c_0} \times W_{c_1}$.
+The new initial state $j$ is $(i, i_0, i_1)$.
+The new transition $u$ sends $(a, a_0, a_2, w)$ to $(t(a, w), t_1(a_0, w), t_2(a_1, w))$.
+The new output function $p$ sends $(a, a_0, a_1, w)$ to $o(a, o_0(a_0, w), o_1(a_1, w))$.
+
+Using this result if $t_1$ and $t_2$ are terms that can be written as operations
+using $thingy$ then so is $t_1 + t_2$ and $t_1 \& t_2$ and so on. Note that the
+number of carry bits required to express $t$ in terms of $thingy$ is the
+total number of operation in $t$ that require a carry. Given $t_1$ and $t_2$, then
+$t_1$ is semantically equal to $t_2$ iff $t_1 \oplus t_2 = 0$.
+We have shown $t_1 \oplus t_2$ can be expressed using $thingy$ and we have already
+shown that it is posisble to check if a $thingy$ is zero on all inputs.
+Therefore verifying $t_1$ is semantically equal to $t_2$ is decidable.
+
+
+\end{document}
